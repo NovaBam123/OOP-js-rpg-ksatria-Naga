@@ -73,7 +73,6 @@ class Game{
     }
     beliStamina= ()=> {
         if(this.player.emas>= 10){
-            this.SoundManager.play('btnClick');
             this.player.emas-= 10;
             this.player.stamina+= 10;
             emasText.textContent= this.player.emas;
@@ -118,13 +117,15 @@ class Game{
     }
     lawanNaga= ()=> {
         this.bertempur(2);
+        this.SoundManager.play('dragonBreath');
     }
     lawanSlime= ()=> {
-       this.bertempur(0);
+        this.bertempur(0);
         this.SoundManager.play('slime');
     }
     lawanBeast= ()=> {
        this.bertempur(1);
+       this.SoundManager.play('slime');
     }
     bertempur= (idx)=> {
         const monsterTemplate= Game.monsterList[idx];
@@ -189,7 +190,8 @@ class Game{
             return Math.random()> 0.5;
         }
         kalah= ()=> {
-            alert('Kamu mati..☠!')
+            setTimeout(()=>this.SoundManager.play('manScream'), 2500);
+            setTimeout(()=> alert('Kamu mati..☠!'), 1500);
             this.updateLocation(4);
         }
         mengalahkanMonster(){
@@ -202,7 +204,8 @@ class Game{
             this.updateLocation(5);
         }
         youWin= ()=> {
-            alert('Monster dragon berteriak dan mati. 🎉 Selamat anda Menang!')
+            this.SoundManager.play('dragonDeath');
+            setTimeout(()=>alert('Monster dragon berteriak dan mati. 🎉 Selamat anda Menang!'), 1500);
             this.updateLocation(6);
         }
         restart= ()=> {
@@ -335,7 +338,10 @@ class SoundManager{
             slime: new Audio ('sound/monster01-growl.mp3'),
             serang: new Audio ('sound/sword-slash.mp3'),
             monsterMati: new Audio('sound/monster01-roar.mp3'),
-            senjata: new Audio('sound/phone sound-[AudioTrimmer.com].mp3')
+            senjata: new Audio('sound/phone sound-[AudioTrimmer.com].mp3'),
+            dragonBreath: new Audio('sound/monster-breath.mp3'),
+            dragonDeath: new Audio ('sound/children-yay.mp3'),
+            manScream: new Audio('sound/man-scream.mp3')
         }
     }
     play(namaSound){
