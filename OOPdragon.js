@@ -31,8 +31,8 @@ class Monster{
 class Player{
     constructor(){
         this.xp = 0;
-        this.stamina = 800;
-        this.emas = 150;
+        this.stamina = 100;
+        this.emas = 50;
         this.currentWeaponIndex = 0;
         this.inventory= [Game.senjataList[0]];
     }
