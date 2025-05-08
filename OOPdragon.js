@@ -9,6 +9,7 @@ const monsterHealthText= document.getElementById('monsterHealthText');
 const monsterName= document.getElementById('monsterName');
 const xpText= document.getElementById('xpText');
 let emojis= ['🗡️'];
+const clickbtn= new Audio('sound/input.mp3')
 
 class Senjata{
     constructor(namaSenjata, power){
@@ -56,13 +57,23 @@ class Game{
     constructor(){
         this.player= new Player();
         this.fighting= null;
+        this.SoundManager= new SoundManager();
     }
-    keToko= ()=> this.updateLocation(0);
-    keKota= ()=> this.updateLocation(1);
-    keGoa=()=> this.updateLocation(2);
-    
+    keToko= ()=> {
+        this.updateLocation(0);
+        this.SoundManager.play('btnClick');
+    }    
+    keKota= ()=> {
+        this.updateLocation(1);
+        this.SoundManager.play('keKota');
+    }    
+    keGoa=()=> {
+        this.updateLocation(2);
+        this.SoundManager.play('keGoa');
+    }
     beliStamina= ()=> {
         if(this.player.emas>= 10){
+            this.SoundManager.play('btnClick');
             this.player.emas-= 10;
             this.player.stamina+= 10;
             emasText.textContent= this.player.emas;
@@ -74,6 +85,7 @@ class Game{
         }
     }
     beliSenjata= ()=> {
+        this.SoundManager.play('senjata');
         if (this.player.currentWeaponIndex < Game.senjataList.length - 1) {
             if (this.player.emas >= 30) {
               this.player.emas -= 30;
@@ -109,6 +121,7 @@ class Game{
     }
     lawanSlime= ()=> {
        this.bertempur(0);
+        this.SoundManager.play('slime');
     }
     lawanBeast= ()=> {
        this.bertempur(1);
@@ -127,6 +140,7 @@ class Game{
         monsterName.textContent= this.fighting.name;
     }
     serang= ()=> {
+        this.SoundManager.play('serang');
         let currentWeapon= this.player.inventory[this.player.currentWeaponIndex];
         let namaSenjata= currentWeapon.namaSenjata;
         /*
@@ -145,7 +159,7 @@ class Game{
         if(this.seranganKena()){
             this.fighting.health-= currentWeapon.power+ Math.floor(Math.random()* this.player.xp)+ 1;
         } else {
-            alert('Serangan kamu meleset!');
+            setTimeout(()=>alert('Serangan kamu meleset!'), 1500);
         }
         staminaText.textContent= this.player.stamina;
         monsterHealthText.textContent= this.fighting.health;
@@ -179,7 +193,8 @@ class Game{
             this.updateLocation(4);
         }
         mengalahkanMonster(){
-            alert('Monster berteriak kesakitan dan mati.');
+            this.SoundManager.play('monsterMati');
+            setTimeout(()=> alert('Monster berteriak kesakitan dan mati.'), 1500);
             this.player.xp+= this.fighting.level;
             this.player.emas+= Math.floor(this.fighting.level* 6.5);
             xpText.textContent= this.player.xp;
@@ -310,6 +325,24 @@ const locations= [
         text: 'Kamu menemukan rahasia permainan. Pilih salah satu no diatas. Sepuluh angka akan diacak dan dipilih antara 0 dan 10. Jika no kamu ada dalam daftar tersebut. kamu menang 20 emas.'
     }
 ]
+
+class SoundManager{
+    constructor(){
+        this.sounds= {
+            keGoa: new Audio('sound/deep-sea-monster-[AudioTrimmer.com].mp3'),
+            btnClick: new Audio('sound/input.mp3'),
+            keKota: new Audio ('sound/sms-received1.mp3'),
+            slime: new Audio ('sound/monster01-growl.mp3'),
+            serang: new Audio ('sound/sword-slash.mp3'),
+            monsterMati: new Audio('sound/monster01-roar.mp3'),
+            senjata: new Audio('sound/phone sound-[AudioTrimmer.com].mp3')
+        }
+    }
+    play(namaSound){
+        this.sounds[namaSound].currentTime= 0;
+        this.sounds[namaSound].play();
+    }
+}
 
 const game= new Game();
 game.start();
