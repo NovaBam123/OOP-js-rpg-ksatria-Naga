@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ksatria Naga</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                font-family: 'Poppins', sans-serif;
+                background-color: #012328;
+                color: #ffffff;
+            }
+            main{
+               background-color: #242277; 
+               max-width: 90%;
+               width: 680px;
+               margin: 30px auto;
+               padding: 10px;
+               color: #ffffff;
+               border-radius: 5px;
+            }
+            #stats, #controls{
+                border-radius: 2px;
+                display: flex;
+                gap: 5px;
+                border: 1px solid coral;
+                padding: 10px;
+                min-height: 36px;
+            }
+            .stat{
+                margin-right: 10px;
+            }
+            #monsterStats{
+                display: none;
+                background-color: darkred;
+                border: 1px solid coral;
+                color: #ffffff;
+                padding: 5px;
+                padding-left: 15px;
+                &span{
+                    padding-left: 20px;
+                }
+            }
+
+            button{
+                padding: 0px 8px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+                font-size: 1rem;
+                background-color: yellow;
+                background-image: linear-gradient(orange, hotpink);
+                border: 3px solid orange;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            #text{
+                background-color: #05043e;
+                color: #ffffff;
+                padding: 10px;
+                border: 1px solid coral;
+            }
+        </style>
+    <head>   
+    <body>
+        <main>
+            <div id="stats">
+                <span class="stat">XP: <strong><span id="xpText">0</span></strong></span>
+                <span class="stat">Stamina: <strong><span id="staminaText">100</span></strong></span>
+                <span class="stat">Emas: <strong><span id="emasText">50</span></strong></span>
+            </div>
+            <div id="controls">
+                <button id="btn1">Ke Toko</button>
+                <button id="btn2">Ke Goa</button>
+                <button id="btn3">Lawan Naga</button>
+            </div>
+            <div id="monsterStats">
+                <span class="stat">Nama Monster: <strong><span id="monsterName"></span></strong></span>
+                <span class="stat">Stamina Monster: <strong><span id="monsterHealthText"></span></strong></span>
+            </div>
+            <div id="text">
+                Anda seorang Ksatria yang bertugas melindungi penduduk desa dari monster Naga, yang mencegah   mereka berpergian ke luar Kota. Anda sekarang sedang berada di Alun-alun Kota. Kemana anda ingin pergi? gunakan tombol diatas untuk memilih.
+            </div>
+        </main>
+        <!-- <script src="dragon.js"></script> -->
+        <script src="OOPdragon.js"></script>
+    </body>    
+ </html>
